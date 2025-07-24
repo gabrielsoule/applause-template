@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(ApplausePlugin VERSION 0.1.0 LANGUAGES C CXX)
+project(ApplauseTemplate VERSION 0.1.0 LANGUAGES C CXX)
 
 # Enable OBJC/OBJCXX on macOS
 if (APPLE)
