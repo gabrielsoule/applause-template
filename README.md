@@ -6,7 +6,7 @@ A minimal template for creating audio plugins using the [Applause](https://githu
 
 ```bash
 # Clone with submodules
-git clone --recursive https://github.com/yourusername/applause-template.git
+git clone --recursive https://github.com/gabrielsoule/applause-template.git
 cd applause-template
 
 # Build
