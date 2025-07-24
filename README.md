@@ -20,7 +20,7 @@ Your CLAP, VST3, and AU plugin builds will be in the `build/` directory and auto
 
 Edit `CMakeLists.txt` to set your plugin's:
 - Name, ID, vendor info
-- Plugin type (instrument/effect)
+- Plugin category (instrument/effect) and subcategories (drum machine/sampler/flanger/filter/etc)
 - AU manufacturer codes
 - Miscellaneous errata
 
