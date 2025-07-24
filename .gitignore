@@ -1,0 +1,75 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+.build/
+
+# IDE directories
+.vscode/
+.idea/
+.vs/
+*.xcodeproj/
+*.xcworkspace/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+CMakeScripts/
+Testing/
+compile_commands.json
+CMakeUserPresets.json
+
+# Build artifacts
+*.clap
+*.vst3
+*.component
+*.dll
+*.so
+*.dylib
+*.exe
+
+# OS specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.filters
+*.vcxproj.user
+
+# JetBrains
+.idea/
+
+# Dependencies (if using package managers)
+vcpkg_installed/
+conan/
+.conan/
+
+# Test and coverage
+Testing/
+coverage/
+*.gcda
+*.gcno
+*.gcov
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Agents
+CLAUDE.md
