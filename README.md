@@ -14,7 +14,7 @@ cmake -B build
 cmake --build build
 ```
 
-Your plugins will be in the `build/` directory and automatically copied to your system plugin folders.
+Your CLAP, VST3, and AU plugin builds will be in the `build/` directory and automatically copied to your system plugin folders.
 
 ## Customization
 
