@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# Control whether Applause builds its examples
+set(APPLAUSE_BUILD_EXAMPLES ON CACHE BOOL "Build Applause examples" FORCE)
+
 # Add the Applause library from submodule
 add_subdirectory(libs/applause EXCLUDE_FROM_ALL)
 
