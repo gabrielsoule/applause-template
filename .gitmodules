@@ -1,3 +1,4 @@
 [submodule "libs/applause"]
 	path = libs/applause
+    branch = main
 	url = https://github.com/gabrielsoule/applause.git
