@@ -5,6 +5,7 @@ project(ApplauseTemplate VERSION 0.1.0 LANGUAGES C CXX)
 if (APPLE)
     enable_language(OBJC)
     enable_language(OBJCXX)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "13.3" CACHE STRING "Minimum macOS deployment target" FORCE)
 endif ()
 
 # Set C++ standard

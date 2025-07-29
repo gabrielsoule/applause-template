@@ -1,17 +1,17 @@
 #pragma once
 
-#include "ui/Editor.h"
+#include "ui/ApplauseEditor.h"
 #include "ui/components/GenericParameterUI.h"
 #include "ui/components/ParamKnob.h"
 #include "extensions/ParamsExtension.h"
 #include <memory>
 #include <functional>
 
-class ApplauseExampleEditor : public applause::Editor
+class ApplauseTemplateEditor : public applause::ApplauseEditor
 {
 public:
-    explicit ApplauseExampleEditor(applause::ParamsExtension* params);
-    ~ApplauseExampleEditor() override = default;
+    explicit ApplauseTemplateEditor(applause::ParamsExtension* params);
+    ~ApplauseTemplateEditor() override = default;
     
     void draw(visage::Canvas& canvas) override;
     void resized() override;

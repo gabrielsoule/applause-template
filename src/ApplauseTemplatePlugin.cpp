@@ -5,7 +5,7 @@
 ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* descriptor, const clap_host_t* host)
     : PluginBase(descriptor, host),
       params_(host),
-      gui_ext_(host)
+      gui_ext_(host, [this]() { return std::make_unique<ApplauseTemplateEditor>(&params_); })
 {
     // Let's add a MIDI input port
     note_ports_.addInput(applause::NotePortConfig::midi("MIDI In"));
@@ -43,9 +43,6 @@ ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* d
         return params_.loadFromStream(ar);
     });
 
-    // Applause is modular, so the GUI extension needs to be manually connected to the parameter extension.
-    // Otherwise, we can't use the parameter widgets in our UI!
-    gui_ext_.registerParamsExtension(&params_);
 
     // Register extensions with the plugin. The extensions will bind themselves directly to CLAP's C ABI.
     registerExtension(note_ports_);

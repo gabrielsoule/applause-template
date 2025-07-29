@@ -5,8 +5,8 @@
 
 using namespace visage::dimension;
 
-ApplauseExampleEditor::ApplauseExampleEditor(applause::ParamsExtension* params)
-    : Editor(params), params_(params)
+ApplauseTemplateEditor::ApplauseTemplateEditor(applause::ParamsExtension* params)
+    : ApplauseEditor(params), params_(params)
 {
     if (params_)
     {
@@ -15,7 +15,7 @@ ApplauseExampleEditor::ApplauseExampleEditor(applause::ParamsExtension* params)
     }
 }
 
-void ApplauseExampleEditor::draw(visage::Canvas& canvas)
+void ApplauseTemplateEditor::draw(visage::Canvas& canvas)
 {
     // Black background
     canvas.setColor(0xFF000000);
@@ -27,7 +27,7 @@ void ApplauseExampleEditor::draw(visage::Canvas& canvas)
                 10, 10, 200, 70);
 }
 
-void ApplauseExampleEditor::resized()
+void ApplauseTemplateEditor::resized()
 {
     test_param_knob_->setBounds(440, 80, 50, 50 + 20);
 }

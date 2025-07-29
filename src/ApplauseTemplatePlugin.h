@@ -40,5 +40,5 @@ private:
     applause::AudioPortsExtension audio_ports_;
     applause::StateExtension state_;
     applause::ParamsExtension params_;
-    applause::GUIExtension<ApplauseExampleEditor> gui_ext_;
+    applause::GUIExtension gui_ext_;
 };
