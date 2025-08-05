@@ -1,7 +1,6 @@
 #include "ApplauseTemplateEditor.h"
-#include "util/DebugHelpers.h"
 #include <visage_graphics/canvas.h>
-#include "embedded/fonts.h"
+#include <embedded/fonts.h>
 
 using namespace visage::dimension;
 

@@ -1,19 +1,18 @@
 #pragma once
+#include <applause/core/PluginBase.h>
+#include <applause/extensions/AudioPortsExtension.h>
+#include <applause/extensions/GUIExtension.h>
+#include <applause/extensions/NotePortsExtension.h>
+#include <applause/extensions/ParamsExtension.h>
+#include <applause/extensions/StateExtension.h>
 
-#include "core/PluginBase.h"
-#include "extensions/AudioPortsExtension.h"
-#include "extensions/NotePortsExtension.h"
-#include "extensions/StateExtension.h"
-#include "extensions/ParamsExtension.h"
-#include "extensions/GUIExtension.h"
-#include "ApplauseTemplateEditor.h"
-#include "util/DebugHelpers.h"
 
-class ApplauseTemplatePlugin : public applause::PluginBase {
+class ApplauseTemplatePlugin : public applause::PluginBase
+{
 public:
     ApplauseTemplatePlugin(const clap_plugin_descriptor_t* descriptor, const clap_host_t* host);
     ~ApplauseTemplatePlugin() override = default;
-    
+
     // Called when an instance of your plugin is instantiated by the host
     bool init() noexcept override;
 
@@ -26,11 +25,11 @@ public:
 
     // Called when the plugin is deactivated and no longer expected to process audio, but not deleted
     void deactivate() noexcept override;
-    
+
     // The main audio processing function. This is the heart of your plugin.
     // Here, you'll perform DSP, respond to events, and output audio samples and/or MIDI notes.
     clap_process_status process(const clap_process_t* process) noexcept override;
-    
+
 private:
     // These extensions hook directly into the CLAP ABI and provide essential functionality.
     // Your plugin won't do much without audio ports, for instance.

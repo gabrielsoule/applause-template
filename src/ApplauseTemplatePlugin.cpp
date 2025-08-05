@@ -1,6 +1,6 @@
 #include "ApplauseTemplatePlugin.h"
-#include <cstring>
-#include "util/DebugHelpers.h"
+
+#include "ApplauseTemplateEditor.h"
 
 ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* descriptor, const clap_host_t* host)
     : PluginBase(descriptor, host),
