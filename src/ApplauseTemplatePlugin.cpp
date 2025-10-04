@@ -1,7 +1,15 @@
 #include "ApplauseTemplatePlugin.h"
 
 #include "ApplauseTemplateEditor.h"
+#include <nlohmann/json.hpp>
 
+
+// When your plugin is instantiated, you'll have to pass the host pointer to your extensions.
+// Otherwise, they won't know how to communicate with the DAW!
+// The GUI extension is a little special: it doesn't actually implement a GUI;
+// rather, it's a C++ glue layer that facilitates communication between a
+// abstract GUI editor and the host. Therefore, we pass in a factory lambda
+// that the extension can use to create editor instances when the host asks.
 ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* descriptor, const clap_host_t* host)
     : PluginBase(descriptor, host),
       params_(host),
@@ -21,6 +29,7 @@ ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* d
         .flags = CLAP_AUDIO_PORT_IS_MAIN
     });
 
+    // This is how you register parameters. Pretty simpler.
     params_.registerParam(applause::ParamConfig{
         .string_id = "test_param",
         .name = "Test Parameter",
@@ -32,19 +41,29 @@ ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* d
     });
 
 
-    // Configure state extension callbacks for parameter persistence
-    state_.setSaveCallback([this](auto& ar)
+    // If you want to save/load your plugin's state, you'll need to furnish the
+    // StateExtension with the appropriate callbacks.
+    // ParamsExtension has some helper functions that are very useful here.
+    // You can also save and load our own arbitrary data, if you want.
+    state_.setSaveCallback([this](nlohmann::json& j)
     {
-        return params_.saveToStream(ar);
+        params_.saveToJson(j["parameters"]);
+        return true;
     });
 
-    state_.setLoadCallback([this](auto& ar)
+    state_.setLoadCallback([this](const nlohmann::json& j)
     {
-        return params_.loadFromStream(ar);
+        if (j.contains("parameters")) {
+            params_.loadFromJson(j["parameters"]);
+        }
+        return true;
     });
 
 
-    // Register extensions with the plugin. The extensions will bind themselves directly to CLAP's C ABI.
+    // Register extensions with the plugin.
+    // The extensions will bind themselves directly to CLAP's C ABI.
+    // This is VERY IMPORTANT! If you don't tell Applause about your extensions,
+    // they won't do anything!
     registerExtension(note_ports_);
     registerExtension(audio_ports_);
     registerExtension(state_);
@@ -63,9 +82,9 @@ void ApplauseTemplatePlugin::destroy() noexcept
     LOG_INFO("ApplauseExample::destroy()");
 }
 
-bool ApplauseTemplatePlugin::activate(double sampleRate, uint32_t minFrameCount, uint32_t maxFrameCount) noexcept
+bool ApplauseTemplatePlugin::activate(const applause::ProcessInfo& info) noexcept
 {
-    LOG_INFO("ApplauseExample::activate() - sampleRate: {}", sampleRate);
+    LOG_INFO("ApplauseExample::activate() - sampleRate: {}", info.sample_rate);
     return true;
 }
 
