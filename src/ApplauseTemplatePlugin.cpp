@@ -1,7 +1,7 @@
 #include "ApplauseTemplatePlugin.h"
 
 #include "ApplauseTemplateEditor.h"
-#include <nlohmann/json.hpp>
+#include <applause/util/Json.h>
 
 
 // When your plugin is instantiated, you'll have to pass the host pointer to your extensions.
@@ -12,8 +12,7 @@
 // that the extension can use to create editor instances when the host asks.
 ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* descriptor, const clap_host_t* host)
     : PluginBase(descriptor, host),
-      params_(host),
-      gui_ext_(host, [this]() { return std::make_unique<ApplauseTemplateEditor>(&params_); })
+      gui_ext_( [this] { return std::make_unique<ApplauseTemplateEditor>(&params_); })
 {
     // Let's add a MIDI input port
     note_ports_.addInput(applause::NotePortConfig::midi("MIDI In"));
@@ -45,13 +44,13 @@ ApplauseTemplatePlugin::ApplauseTemplatePlugin(const clap_plugin_descriptor_t* d
     // StateExtension with the appropriate callbacks.
     // ParamsExtension has some helper functions that are very useful here.
     // You can also save and load our own arbitrary data, if you want.
-    state_.setSaveCallback([this](nlohmann::json& j)
+    state_.setSaveCallback([this](applause::json& j)
     {
         params_.saveToJson(j["parameters"]);
         return true;
     });
 
-    state_.setLoadCallback([this](const nlohmann::json& j)
+    state_.setLoadCallback([this](const applause::json& j)
     {
         if (j.contains("parameters")) {
             params_.loadFromJson(j["parameters"]);
