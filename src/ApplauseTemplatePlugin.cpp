@@ -92,10 +92,13 @@ void ApplauseTemplatePlugin::deactivate() noexcept
     LOG_INFO("ApplauseExample::deactivate()");
 }
 
-clap_process_status ApplauseTemplatePlugin::process(const clap_process_t* process) noexcept
+applause::ProcessStatus ApplauseTemplatePlugin::process(applause::ProcessContext& context) noexcept
 {
     // Let the parameter module process events.
-    params_.processEvents(process->in_events, process->out_events);
+    params_.processEvents(context.inputEvents(), context.outputEvents());
 
-    return CLAP_PROCESS_SLEEP;
+    // We don't generate any audio yet, so hand the host a block of silence.
+    context.output<float, 2>().clear();
+
+    return applause::ProcessStatus::Sleep;
 }
