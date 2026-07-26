@@ -12,6 +12,6 @@ public:
     void resized() override;
     
 private:
-    std::unique_ptr<applause::ParamKnob> test_param_knob_;
+    std::unique_ptr<applause::ParamKnob> frequency_knob_;
     applause::ParamsExtension* params_;
 };

@@ -50,8 +50,11 @@ add_applause_plugin(
         PLUGIN_URL "https://yourwebsite.com"
         PLUGIN_VERSION ${PROJECT_VERSION}
         PLUGIN_DESCRIPTION "Description of your plugin"
-        # Search for plugin-features.h in the CLAP source repository for a complete list of CLAP feature flags
-        PLUGIN_FEATURES INSTRUMENT SYNTHESIZER
+        # Search for plugin-features.h in the CLAP source repository for a complete list of CLAP feature flags.
+        # These tags say "this is a synthesizer: it takes MIDI in and produces stereo audio out", which matches the
+        # NotePorts/AudioPorts extensions configured in ApplauseTemplatePlugin.cpp. Some hosts are strict about the
+        # tags agreeing with the ports you register; see the notes in libs/applause/cmake/ApplausePlugin.cmake.
+        PLUGIN_FEATURES INSTRUMENT SYNTHESIZER STEREO
 
         SOURCES ${PLUGIN_SOURCES}
 

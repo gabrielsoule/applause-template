@@ -9,8 +9,8 @@ ApplauseTemplateEditor::ApplauseTemplateEditor(applause::ParamsExtension* params
 {
     if (params_)
     {
-        test_param_knob_ = std::make_unique<applause::ParamKnob>(params_->getInfo("test_param"));
-        addChild(test_param_knob_.get());
+        frequency_knob_ = std::make_unique<applause::ParamKnob>(params_->getInfo("frequency"));
+        addChild(frequency_knob_.get());
     }
 }
 
@@ -28,5 +28,5 @@ void ApplauseTemplateEditor::draw(visage::Canvas& canvas)
 
 void ApplauseTemplateEditor::resized()
 {
-    test_param_knob_->setBounds(440, 80, 50, 50 + 20);
+    frequency_knob_->setBounds(440, 80, 50, 50 + 20);
 }

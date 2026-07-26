@@ -26,12 +26,19 @@ public:
     // Called when the plugin is deactivated and no longer expected to process audio, but not deleted
     void deactivate() noexcept override;
 
+    // Called when the host wants the plugin to drop any state left over from previous audio,
+    // e.g. after a transport jump. Clear out filter memory, oscillator phase, envelopes, etc.
+    void reset() noexcept override;
+
     // The main audio processing function. This is the heart of your plugin.
     // Here, you'll perform DSP, respond to events, and output audio samples and/or MIDI notes.
     // Everything you need for the block lives on the ProcessContext: audio buffers via
     // context.input<float, N>() / context.output<float, N>(), events via context.inputEvents() and
     // context.outputEvents(), the block length via context.numFrames(), plus transport info.
     // If you ever need the raw CLAP struct, it's still there via context.native().
+    //
+    // This template renders a plain sine wave so you can hear something immediately. It ignores the
+    // incoming MIDI; see the ExampleSineWaveSynth in libs/applause/examples for note-driven voices.
     applause::ProcessStatus process(applause::ProcessContext& context) noexcept override;
 
 private:
@@ -56,4 +63,17 @@ private:
 
     // If you want a GUI, use this extension. Pretty self-explanatory.
     applause::GUIExtension gui_ext_;
+
+    // A cached handle to our frequency parameter. Handles are the audio-thread-friendly way to read
+    // parameter values: they're lock-free and cheap. Look them up once (see the constructor) and hold
+    // onto them; don't call getHandle() from process().
+    applause::ParamHandle* frequency_param_ = nullptr;
+
+    // The sample rate the host gave us in activate(). We need it to know how fast to advance the
+    // oscillator: a 440 Hz tone advances through its cycle twice as fast at 44.1 kHz as it does at 88.2 kHz.
+    double sample_rate_ = 44100.0;
+
+    // How far through the sine wave we are, in radians. This has to persist across process() calls,
+    // otherwise every block would restart the wave from zero and you'd hear clicks.
+    double phase_ = 0.0;
 };
