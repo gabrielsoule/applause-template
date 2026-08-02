@@ -33,7 +33,7 @@ public:
     // The main audio processing function. This is the heart of your plugin.
     // Here, you'll perform DSP, respond to events, and output audio samples and/or MIDI notes.
     // Everything you need for the block lives on the ProcessContext: audio buffers via
-    // context.input<float, N>() / context.output<float, N>(), events via context.inputEvents() and
+    // context.input<float>() / context.output<float>(), events via context.inputEvents() and
     // context.outputEvents(), the block length via context.numFrames(), plus transport info.
     // If you ever need the raw CLAP struct, it's still there via context.native().
     //

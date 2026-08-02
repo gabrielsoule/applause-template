@@ -132,11 +132,9 @@ applause::ProcessStatus ApplauseTemplatePlugin::process(applause::ProcessContext
     // by default.
     params_.processEvents(context.inputEvents(), context.outputEvents());
 
-    // Ask the context for a writable view of our output buffer. The template arguments mean
-    // "32-bit float samples, at most 2 channels"; the view itself knows how many channels the host
-    // actually handed us, which may be fewer. An empty view means the host gave us nothing usable.
+    // Ask the context for a writable view of our output buffer.
     // Since we requested a stereo setup in our audio ports extension, we are expecting a stereo output.
-    auto output = context.output<float, 2>();
+    applause::BufferView<float> output = context.output<float>();
     if (output.numChannels() == 0) return applause::ProcessStatus::Continue;
 
     const double frequency = frequency_param_->getValue();
